@@ -15,14 +15,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class SeatService implements ISeatService {
+
+    private final ISeatRepository seatRepository;
+
+    private final IScheduleRepository scheduleRepository;
+
+    private final ITicketRepository ticketRepository;
+
+    private final ModelMapper modelMapper;
     @Autowired
-    private ISeatRepository seatRepository;
-    @Autowired
-    private IScheduleRepository scheduleRepository;
-    @Autowired
-    private ITicketRepository ticketRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    public SeatService(ISeatRepository seatRepository, IScheduleRepository scheduleRepository, ITicketRepository ticketRepository){
+        this.modelMapper = new ModelMapper();
+        this.seatRepository = seatRepository;
+        this.scheduleRepository =  scheduleRepository;
+        this.ticketRepository = ticketRepository;
+    }
 
     @Override
     public List<SeatDTO> getSeatsByScheduleId(Integer scheduleId) {

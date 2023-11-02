@@ -5,7 +5,7 @@ import com.vti.movie.dtos.LoginDTO;
 import com.vti.movie.entity.User;
 import com.vti.movie.exception.AppException;
 import com.vti.movie.exception.ErrorResponseBase;
-import com.vti.movie.modal.request.LoginRequest;
+import com.vti.movie.modal.LoginRequest;
 import com.vti.movie.repository.IUserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;

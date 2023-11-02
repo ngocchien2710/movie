@@ -1,28 +1,28 @@
 package com.vti.movie.config.jwt;
 
 import com.vti.movie.dtos.LoginDTO;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
-public class JWTRequestFilter extends OncePerRequestFilter {
+public  class JWTRequestFilter extends OncePerRequestFilter  {
 
     private static final String AUTHORIZATION = "Authorization";
-    @Autowired
+
     private JWTTokenUtils jwtTokenUtils;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
@@ -58,3 +58,4 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
     }
 }
+

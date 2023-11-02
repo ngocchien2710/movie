@@ -1,9 +1,10 @@
 package com.vti.movie.config.jwt;
 
 import com.alibaba.fastjson.JSON;
-import com.auth0.json.mgmt.Token;
+
 import com.vti.movie.dtos.LoginDTO;
-import com.vti.movie.entity.Role;
+
+import com.vti.movie.entity.Token;
 import com.vti.movie.exception.AppException;
 import com.vti.movie.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
@@ -11,7 +12,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Value;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class JWTTokenUtils {
     private static final String PREFIX_TOKEN = "Bearer";//Ký tự đầu tiên của token
     private static final String AUTHORIZATION = "Authorization";//key của token trên header
 
-    @Value("864000000")
-    private long expDate;
+
+    private long expDate =864000000;
 
     @Autowired
     private TokenRepository tokenRepository;
@@ -45,7 +46,7 @@ public class JWTTokenUtils {
                 .setIssuer("VTI")
                 .setExpiration(expirationDate) // set thời hạn của token
                 .signWith(SignatureAlgorithm.HS512, SECRET) // khai báo phương thức mã hóa token và chữ ký bí mật
-                .claim("authorities", loginDto.getRole().name()) // thêm trường authorities để lưu giá trị phân quyền
+                .claim("authorities", "User") // thêm trường authorities để lưu giá trị phân quyền
                 .claim("userAgent", loginDto.getUserAgent()).compact(); // thêm trường userAgent để lưu thông tin trình duyệt đang dùng
 
         Token tokenEntity = new Token();
@@ -67,12 +68,12 @@ public class JWTTokenUtils {
                         .parseClaimsJws(token).getBody();
                 //Lấy ra các thông tin
                 String user = claims.getSubject();
-                Role role = Role.valueOf(claims.get("authorities").toString());
+
                 String userAgent = claims.get("userAgent").toString();
 
                 //Gán các thông tin vào đối tượng LoginDto, có thể sử dụng constructor
                 loginDto.setUsername(user);
-                loginDto.setRole(role);
+
                 loginDto.setUserAgent(userAgent);
             } catch (Exception e) {
                 log.error(e.getMessage());

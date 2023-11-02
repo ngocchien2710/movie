@@ -1,4 +1,4 @@
-package com.vti.movie.modal.request;
+package com.vti.movie.modal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

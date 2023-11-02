@@ -12,11 +12,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class MovieService implements IMovieService {
-    @Autowired
-    private IMovieRepository movieRepository;
+   private final IMovieRepository movieRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+   private final ModelMapper modelMapper;
+
+   @Autowired
+   public MovieService(IMovieRepository movieRepository) {
+       this.modelMapper = new ModelMapper();
+
+       this.movieRepository = movieRepository;
+   }
     @Override
     public List<MovieDTO> findAllShowingMovies() {
         return movieRepository.findMoviesByIsShowingOrderByIdDesc(1)

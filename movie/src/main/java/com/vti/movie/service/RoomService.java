@@ -8,16 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class RoomService implements IRoomService {
-    @Autowired
-    private IRoomRepository roomRepository;
+
+    private final IRoomRepository roomRepository;
+
+
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public RoomService(IRoomRepository roomRepository){
+        this.modelMapper = new ModelMapper();
+        this.roomRepository = roomRepository;
+    }
 
 
     @Override

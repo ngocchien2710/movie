@@ -15,10 +15,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class ScheduleService implements IScheduleService {
+
+    private final IScheduleRepository scheduleRepository;
+
+    private final ModelMapper modelMapper;
+
     @Autowired
-    private IScheduleRepository scheduleRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    public ScheduleService(IScheduleRepository scheduleRepository){
+        this.scheduleRepository = scheduleRepository;
+        this.modelMapper = new ModelMapper();
+    }
     @Override
     public List<String> getStartTimes(Integer movieId, Integer cinemaId, LocalDate startDate) {
         return scheduleRepository.getStartTimeByMovie_IdAndCinema_IdAndStartDate(movieId,cinemaId,startDate)

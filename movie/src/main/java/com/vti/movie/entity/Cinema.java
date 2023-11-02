@@ -14,5 +14,5 @@ public class Cinema {
     private String imgURL;
     private String name;
     private String diaChi;
-    private String phoneNo;
+//    private String phoneNo;
 }

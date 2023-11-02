@@ -12,11 +12,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class CinemaService implements ICinemaService {
-    @Autowired
-    private ICinemaRepository cinemaRepository;
+
+    private final ICinemaRepository cinemaRepository;
+
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public CinemaService( ICinemaRepository cinemaRepository) {
+        this.modelMapper = new ModelMapper();
+
+            this.cinemaRepository = cinemaRepository;
+
+    }
 
     @Override
     public List<CinemaDTO> getCinemaesThatShowTheMovie(Integer movieId) {

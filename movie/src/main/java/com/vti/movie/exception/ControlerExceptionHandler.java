@@ -32,12 +32,12 @@ public class ControlerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<AppException> handleBindException(BindException e, HttpServletRequest request) {
         String errorMessage = "";
-        if (e.getBindingResult().hasErrors()){
-            for(int i=0;i< e.getBindingResult().getAllErrors().size();i++){
-                errorMessage += e.getBindingResult().getAllErrors().get(i).getDefaultMessage();
-                errorMessage += (i==e.getBindingResult().getAllErrors().size()-1) ? "." : ", ";
-            }
-        }
+////        if (e.getBindingResult().hasErrors()){
+////            for(int i=0;i< e.getBindingResult().getAllErrors().size();i++){
+////                errorMessage += e.getBindingResult().getAllErrors().get(i).getDefaultMessage();
+////                errorMessage += (i==e.getBindingResult().getAllErrors().size()-1) ? "." : ", ";
+////            }
+//        }
         AppException appException= new AppException(errorMessage, 400, request.getRequestURI());
         return new ResponseEntity<>(appException, HttpStatus.valueOf(appException.getCode()));
     }

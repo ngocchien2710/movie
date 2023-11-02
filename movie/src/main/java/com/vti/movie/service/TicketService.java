@@ -12,10 +12,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class TicketService implements ITicketService {
+
+    private final ITicketRepository ticketRepository;
+
+    private final ModelMapper modelMapper;
+
     @Autowired
-    private ITicketRepository ticketRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    public TicketService(ITicketRepository ticketRepository){
+        this.modelMapper = new ModelMapper();
+        this.ticketRepository = ticketRepository;
+    }
     @Override
     public List<TicketDTO> getTicketsByUserId(Integer userId) {
         return ticketRepository.findTicketsByUserId(userId)

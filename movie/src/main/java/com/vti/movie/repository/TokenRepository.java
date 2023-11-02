@@ -11,7 +11,7 @@ import java.util.List;
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
 
-    com.auth0.json.mgmt.Token findByToken(String token);
+    Token findByToken(String token);
 
     List<Token> findByExpirationIsAfter(Date exDate);
 }
