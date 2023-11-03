@@ -1,9 +1,11 @@
 package com.vti.movie.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 @Data
 @Entity

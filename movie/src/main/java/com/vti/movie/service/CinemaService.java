@@ -53,7 +53,7 @@ public class CinemaService implements ICinemaService {
         if (existingCinema != null) {
             existingCinema.setName(updatedCinema.getName());
             existingCinema.setDiaChi(updatedCinema.getDiaChi());
-            existingCinema.setPhoneNo(updatedCinema.getPhoneNo());
+
             existingCinema.setImgURL(updatedCinema.getImgURL());
             return cinemaRepository.save(existingCinema);
         } else {

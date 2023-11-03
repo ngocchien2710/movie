@@ -6,10 +6,11 @@ import com.vti.movie.entity.Schedule;
 import com.vti.movie.entity.Ticket;
 import com.vti.movie.entity.User;
 import com.vti.movie.repository.*;
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -4,20 +4,25 @@ import com.alibaba.fastjson.JSON;
 
 import com.vti.movie.dtos.LoginDTO;
 
+import com.vti.movie.dtos.SignUpDTO;
+import com.vti.movie.entity.ERole;
 import com.vti.movie.entity.Token;
 import com.vti.movie.exception.AppException;
 import com.vti.movie.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.Date;
 
@@ -30,10 +35,12 @@ public class JWTTokenUtils {
     private static final String AUTHORIZATION = "Authorization";//key của token trên header
 
 
-    private long expDate =864000000;
+    private long expDate = 864000000;
 
     @Autowired
     private TokenRepository tokenRepository;
+
+
 
     //Hàm này dùng để tạo ra token
     public String createAccessToken(LoginDTO loginDto) {
@@ -57,11 +64,13 @@ public class JWTTokenUtils {
         return token;
     }
 
+
+
     // Hàm này dùng để giải mã hóa token
     public LoginDTO parseAccessToken(String token) {
         LoginDTO loginDto = new LoginDTO();
         if (!token.isEmpty()) {
-            try{
+            try {
                 token = token.replace(PREFIX_TOKEN, "").trim();
                 Claims claims = Jwts.parser()
                         .setSigningKey(SECRET)
@@ -82,7 +91,7 @@ public class JWTTokenUtils {
         return loginDto;
     }
 
-    public boolean checkToken(String token, HttpServletResponse response, HttpServletRequest httpServletRequest) {
+    public boolean checkToken(String token, @NotNull HttpServletResponse response, HttpServletRequest httpServletRequest) {
         try {
             if (StringUtils.isBlank(token) || !token.startsWith(PREFIX_TOKEN)) { // token bị trống -> lỗi
                 responseJson(response, new AppException("Token ko hợp lệ", 401, httpServletRequest.getRequestURI()));
@@ -92,7 +101,7 @@ public class JWTTokenUtils {
 
             Token tokenEntity = tokenRepository.findByToken(token);
             if (tokenEntity == null) { // Ko có token trên hệ thống
-                responseJson(response, new AppException("Token ko tồn tại",401, httpServletRequest.getRequestURI()));
+                responseJson(response, new AppException("Token ko tồn tại", 401, httpServletRequest.getRequestURI()));
                 return false;
             }
 
@@ -103,28 +112,39 @@ public class JWTTokenUtils {
 //            }
 
             if (tokenEntity.getExpiration().after(new Date(System.currentTimeMillis() + EXPIRATION_TIME))) { // Token hết hạn
-                responseJson(response, new AppException("Token hết hiệu lực",401, httpServletRequest.getRequestURI()));
+                responseJson(response, new AppException("Token hết hiệu lực", 401, httpServletRequest.getRequestURI()));
                 return false;
             }
         } catch (Exception e) {
-            responseJson(response, new AppException(e.getMessage(),401, httpServletRequest.getRequestURI()));
+            responseJson(response, new AppException(e.getMessage(), 401, httpServletRequest.getRequestURI()));
             return false;
         }
         return true;
     }
 
 
-
     //Hàm này dùng để response dữ liệu khi gặp lỗi
-    private void responseJson(HttpServletResponse response, AppException appException){
+    private void responseJson(HttpServletResponse response, AppException appException) {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setStatus(appException.getCode());
         try {
             response.getWriter().print(JSON.toJSONString(appException));
-        }catch (IOException e) {
+        } catch (IOException e) {
             log.debug(e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+
+    public String generateTokenLogin(Authentication authentication) {
+       SignUpDTO signUpDTO = (SignUpDTO) authentication.getPrincipal();
+
+        return Jwts.builder()
+                .setSubject((signUpDTO.getUsername()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + EXPIRATION_TIME * 1000))
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .compact();
     }
 }

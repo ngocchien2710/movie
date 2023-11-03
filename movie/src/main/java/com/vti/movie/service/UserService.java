@@ -7,7 +7,7 @@ import com.vti.movie.modal.CreateUserRequest;
 import com.vti.movie.modal.UpdateUserRequest;
 import com.vti.movie.repository.IUserRepository;
 import com.vti.movie.security.UserDetailsService;
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

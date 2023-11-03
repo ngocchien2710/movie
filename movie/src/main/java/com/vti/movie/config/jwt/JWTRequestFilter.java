@@ -1,10 +1,7 @@
 package com.vti.movie.config.jwt;
 
 import com.vti.movie.dtos.LoginDTO;
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,17 +10,23 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Component
-public  class JWTRequestFilter extends OncePerRequestFilter  {
+public  class JWTRequestFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION = "Authorization";
 
     private JWTTokenUtils jwtTokenUtils;
+
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     @NotNull HttpServletResponse httpServletResponse,
@@ -35,8 +38,7 @@ public  class JWTRequestFilter extends OncePerRequestFilter  {
         if (StringUtils.containsAnyIgnoreCase(request, "/api/v1/auth/login")
                 || StringUtils.containsAnyIgnoreCase(request, "/swagger-ui")
                 || StringUtils.containsAnyIgnoreCase(request, "/swagger-resources")
-                || StringUtils.containsAnyIgnoreCase(request, "/v3/api-docs"))
-        {
+                || StringUtils.containsAnyIgnoreCase(request, "/v3/api-docs")) {
             // Những api public k cần check token -> doFilter
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } else {
@@ -58,4 +60,3 @@ public  class JWTRequestFilter extends OncePerRequestFilter  {
 
     }
 }
-

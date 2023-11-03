@@ -1,8 +1,9 @@
 package com.vti.movie.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
@@ -30,5 +31,5 @@ public class Movie {
     private String trailerURL;
     private String language;
     private String rated;
-    private int isShowing;
+//    private int isShowing;
 }

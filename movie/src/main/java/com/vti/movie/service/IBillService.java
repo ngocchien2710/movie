@@ -2,8 +2,9 @@ package com.vti.movie.service;
 
 import com.vti.movie.dtos.BookingRequestDTO;
 import com.vti.movie.entity.Bill;
-import jakarta.transaction.Transactional;
 
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface IBillService {

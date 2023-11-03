@@ -8,7 +8,7 @@ import java.time.LocalTime;
 @Data
 public class ScheduleDTO {
     private int id;
-    private LocalDate startDate;
+    private LocalDate movieDate;
     private LocalTime startTime;
     private CinemaDTO cinema;
     private RoomDTO room;

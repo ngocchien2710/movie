@@ -1,14 +1,12 @@
 package com.vti.movie.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.*;
 
 @Data
 @Getter

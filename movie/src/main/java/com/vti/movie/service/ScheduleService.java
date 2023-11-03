@@ -59,8 +59,8 @@ public class ScheduleService implements IScheduleService {
     public Schedule updateSchedule(int id, Schedule updatedSchedule) {
         Schedule existingSchedule = scheduleRepository.findById(id).orElse(null);
         if (existingSchedule != null) {
-            existingSchedule.setStartDate(updatedSchedule.getStartDate());
-            existingSchedule.setStartTime(updatedSchedule.getStartTime());
+            existingSchedule.setMovieDate(updatedSchedule.getMovieDate());
+            existingSchedule.setShowTime(updatedSchedule.getShowTime());
             existingSchedule.setPrice(updatedSchedule.getPrice());
             existingSchedule.setMovie(updatedSchedule.getMovie());
             existingSchedule.setCinema(updatedSchedule.getCinema());

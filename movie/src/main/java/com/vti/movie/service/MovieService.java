@@ -64,7 +64,7 @@ public class MovieService implements IMovieService {
             existingMovie.setTrailerURL(updatedMovie.getTrailerURL());
             existingMovie.setLanguage(updatedMovie.getLanguage());
             existingMovie.setRated(updatedMovie.getRated());
-            existingMovie.setIsShowing(updatedMovie.getIsShowing());
+
             return movieRepository.save(existingMovie);
         } else {
             return null;

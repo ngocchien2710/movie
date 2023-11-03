@@ -1,10 +1,11 @@
 package com.vti.movie.entity;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,8 +16,8 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate startDate;
-    private LocalTime startTime;
+    private LocalDate movieDate;
+    private LocalTime showTime;
     private double price;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
