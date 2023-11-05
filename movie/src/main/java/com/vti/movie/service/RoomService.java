@@ -45,8 +45,9 @@ public class RoomService implements IRoomService {
         if (existingRoom != null) {
             existingRoom.setName(updatedRoom.getName());
             existingRoom.setCapacity(updatedRoom.getCapacity());
-            existingRoom.setTotalArea(updatedRoom.getTotalArea());
-            existingRoom.setImgURL(updatedRoom.getImgURL());
+            existingRoom.setTotalAreaVip(updatedRoom.getTotalAreaVip());
+//            existingRoom.setImgURL(updatedRoom.getImgURL());
+            existingRoom.setTotalAreaNormal(updatedRoom.getTotalAreaNormal());
             existingRoom.setCinema(updatedRoom.getCinema());
             return roomRepository.save(existingRoom);
         } else {

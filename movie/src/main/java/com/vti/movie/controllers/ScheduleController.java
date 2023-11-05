@@ -18,6 +18,7 @@ public class ScheduleController {
     @Autowired
     private IScheduleService scheduleService;
 
+
     @GetMapping("/start-times")
     public List<String> getStartTimes(@RequestParam Integer movieId, @RequestParam Integer cinemaId,
                                       @RequestParam String startDate) {
@@ -26,9 +27,9 @@ public class ScheduleController {
 
     @GetMapping
     public List<ScheduleDTO> getSchedules(@RequestParam Integer movieId, @RequestParam Integer cinemaId,
-                                          @RequestParam String startDate, @RequestParam String startTime,
-                                          @RequestParam Integer roomId){
-        return scheduleService.getSchedules(movieId,cinemaId,startDate,startTime,roomId);
+                                          @RequestParam  String startTime,
+                                          @RequestParam Integer roomId, String movieDate, String finishTime){
+        return scheduleService.getSchedules(movieId,cinemaId,movieDate,startTime, finishTime, roomId);
     }
 
     @GetMapping("/all")

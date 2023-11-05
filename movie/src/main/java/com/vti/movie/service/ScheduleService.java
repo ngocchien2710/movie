@@ -26,16 +26,21 @@ public class ScheduleService implements IScheduleService {
         this.modelMapper = new ModelMapper();
     }
     @Override
-    public List<String> getStartTimes(Integer movieId, Integer cinemaId, LocalDate startDate) {
-        return scheduleRepository.getStartTimeByMovie_IdAndCinema_IdAndStartDate(movieId,cinemaId,startDate)
+    public List<String> getStartTimes(Integer movieId, Integer cinemaId, LocalDate movieDate) {
+        return scheduleRepository.getStartTimeByMovie_IdAndCinema_IdAndStartDate(movieId,cinemaId,movieDate)
                 .stream().map(localTime -> localTime.format(DateTimeFormatter.ofPattern("HH:mm")))
                 .collect(Collectors.toList());
     }
+//
+//    @Override
+//    public List<ScheduleDTO> getSchedules(Integer movieId, Integer cinemaId, String startDate, String startTime, Integer roomId) {
+//        return null;
+//    }
 
     @Override
-    public List<ScheduleDTO> getSchedules(Integer movieId, Integer cinemaId, String startDate, String startTime, Integer roomId) {
+    public List<ScheduleDTO> getSchedules(Integer movieId, Integer cinemaId, String movieDate, String startTime, String finishTime ,Integer roomId) {
         return scheduleRepository.getSchedulesByMovie_IdAndCinema_IdAndStartDateAndStartTimeAndRoom_Id(movieId,cinemaId
-                        ,LocalDate.parse(startDate), LocalTime.parse(startTime), roomId)
+                        ,LocalDate.parse(movieDate), LocalTime.parse(startTime), LocalTime.parse(finishTime), roomId)
                 .stream().map(schedule -> modelMapper.map(schedule,ScheduleDTO.class))
                 .collect(Collectors.toList());
     }
@@ -60,8 +65,10 @@ public class ScheduleService implements IScheduleService {
         Schedule existingSchedule = scheduleRepository.findById(id).orElse(null);
         if (existingSchedule != null) {
             existingSchedule.setMovieDate(updatedSchedule.getMovieDate());
-            existingSchedule.setShowTime(updatedSchedule.getShowTime());
-            existingSchedule.setPrice(updatedSchedule.getPrice());
+            existingSchedule.setMovieDate(updatedSchedule.getMovieDate());
+//            existingSchedule.setPrice(updatedSchedule.getPrice());
+            existingSchedule.setFinishTime(updatedSchedule.getFinishTime());
+            existingSchedule.setStartTime(updatedSchedule.getStartTime());
             existingSchedule.setMovie(updatedSchedule.getMovie());
             existingSchedule.setCinema(updatedSchedule.getCinema());
             existingSchedule.setRoom(updatedSchedule.getRoom());

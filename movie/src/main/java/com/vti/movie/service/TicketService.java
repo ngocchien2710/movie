@@ -43,7 +43,7 @@ public class TicketService implements ITicketService {
     public Ticket updateTicket(int id, Ticket updatedTicket) {
         Ticket existingTicket = ticketRepository.findById(id).orElse(null);
         if (existingTicket != null) {
-            existingTicket.setQrImageURL(updatedTicket.getQrImageURL());
+//            existingTicket.setQrImageURL(updatedTicket.getQrImageURL());
             existingTicket.setSeat(updatedTicket.getSeat());
             existingTicket.setSchedule(updatedTicket.getSchedule());
             existingTicket.setBill(updatedTicket.getBill());

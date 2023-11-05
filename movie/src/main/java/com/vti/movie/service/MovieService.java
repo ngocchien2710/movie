@@ -52,19 +52,19 @@ public class MovieService implements IMovieService {
         Movie existingMovie = movieRepository.findById(id).orElse(null);
         if (existingMovie != null) {
             existingMovie.setName(updatedMovie.getName());
-            existingMovie.setSmallImageURl(updatedMovie.getSmallImageURl());
-            existingMovie.setShortDescription(updatedMovie.getShortDescription());
-            existingMovie.setLongDescription(updatedMovie.getLongDescription());
-            existingMovie.setLargeImageURL(updatedMovie.getLargeImageURL());
+//            existingMovie.setSmallImageURl(updatedMovie.getSmallImageURl());
+            existingMovie.setDescription(updatedMovie.getDescription());
+            existingMovie.setImgURL(updatedMovie.getImgURL());
+//            existingMovie.setLargeImageURL(updatedMovie.getLargeImageURL());
             existingMovie.setDirector(updatedMovie.getDirector());
             existingMovie.setActors(updatedMovie.getActors());
             existingMovie.setCategories(updatedMovie.getCategories());
             existingMovie.setReleaseDate(updatedMovie.getReleaseDate());
             existingMovie.setDuration(updatedMovie.getDuration());
             existingMovie.setTrailerURL(updatedMovie.getTrailerURL());
-            existingMovie.setLanguage(updatedMovie.getLanguage());
+//            existingMovie.setLanguage(updatedMovie.getLanguage());
             existingMovie.setRated(updatedMovie.getRated());
-
+            existingMovie.setNationProducter(updatedMovie.getNationProducter());
             return movieRepository.save(existingMovie);
         } else {
             return null;

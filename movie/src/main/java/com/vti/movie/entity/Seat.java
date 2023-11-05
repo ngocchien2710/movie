@@ -13,7 +13,10 @@ import javax.persistence.*;
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="id")
     private int id;
+
+    @Column(name ="100", nullable = false, unique = true)
     private String name;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
