@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +25,22 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String fullName;
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
+    @Column(nullable = false)
+    private String cccd;
+
+    @Column(nullable = false)
+    private String address;
 
     @Column(nullable = false)
     private String phoneNumber;
 
     @Column(nullable = false)
-    private String email;
+    private String bank_car_number;
 
     @Column(name = "`role`")
     @Enumerated(EnumType.STRING)

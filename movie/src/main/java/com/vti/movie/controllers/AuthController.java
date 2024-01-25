@@ -82,7 +82,7 @@ public class AuthController {
             String jwt = jwtTokenUtils.generateTokenLogin(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User currentUser = userRepository.findByUsername(user.getUsername()).get();
-            return ResponseEntity.ok(new SignUpDTO(currentUser.getId(), currentUser.getFullName(), userDetails.getUsername() , currentUser.getEmail(), currentUser.getRole(), currentUser.getPhoneNumber()));
+            return ResponseEntity.ok(new SignUpDTO(currentUser.getId(), currentUser.getFirstname(), userDetails.getUsername() , currentUser.getLastname(), currentUser.getRole(),currentUser.getBank_car_number(), currentUser.getPhoneNumber()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

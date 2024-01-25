@@ -18,11 +18,15 @@ public class SignUpDTO implements UserDetails {
     private int id;
     private String username;
     private ERole role;
-    private String fullname;
+    private String firstname;
+    private String lastname;
     private String email;
     private String phoneNumber;
+    private String bank_card_number;
 
-    public SignUpDTO(Integer id, String fullName, String username, String email, ERole role, String phoneNumber) {
+
+
+    public SignUpDTO(Integer id, String firstname, String username, String lastname, ERole role, String bank_car_number, String phoneNumber) {
     }
 
     @Override

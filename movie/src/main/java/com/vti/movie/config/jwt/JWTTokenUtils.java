@@ -53,7 +53,7 @@ public class JWTTokenUtils {
                 .setIssuer("VTI")
                 .setExpiration(expirationDate) // set thời hạn của token
                 .signWith(SignatureAlgorithm.HS512, SECRET) // khai báo phương thức mã hóa token và chữ ký bí mật
-                .claim("authorities", "User") // thêm trường authorities để lưu giá trị phân quyền
+                .claim("authorities",loginDto.getRole().name()) // thêm trường authorities để lưu giá trị phân quyền
                 .claim("userAgent", loginDto.getUserAgent()).compact(); // thêm trường userAgent để lưu thông tin trình duyệt đang dùng
 
         Token tokenEntity = new Token();

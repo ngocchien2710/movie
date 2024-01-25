@@ -14,12 +14,17 @@ public class CreateUserRequest {
 
     private ERole role;
 
+    @NotBlank(message = "Tên không được để trống")
+    private String lastname;
+
+
+    @NotBlank(message = "Tên không được để trống")
+    private String firstname;
+
     @NotBlank(message = "Password không được để tróng")
     @Size(min = 3, max = 6, message = "Password phải có từ 3-6 kí tự")
     private String password;
 
-    @NotBlank(message = "Tên không được để trống")
-    private String fullname;
 
     @NotBlank(message = "Số điện thoại không được để trống")
     private String phoneNumber;
