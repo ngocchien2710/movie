@@ -2,11 +2,10 @@ package com.vti.movie.config.jwt;
 
 import com.alibaba.fastjson.JSON;
 
-import com.vti.movie.dtos.LoginDTO;
+import com.vti.movie.modal.dtos.LoginDTO;
 
-import com.vti.movie.dtos.SignUpDTO;
-import com.vti.movie.entity.ERole;
-import com.vti.movie.entity.Token;
+import com.vti.movie.modal.dtos.SignUpDTO;
+import com.vti.movie.modal.entity.Token;
 import com.vti.movie.exception.AppException;
 import com.vti.movie.repository.TokenRepository;
 import io.jsonwebtoken.Claims;

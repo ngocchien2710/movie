@@ -1,10 +1,10 @@
-package com.vti.movie.entity;
+package com.vti.movie.modal.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public enum ERole implements GrantedAuthority {
     ADMIN,
-    CUSTOMER;
+    USER;
 
     @Override
     public String getAuthority(){

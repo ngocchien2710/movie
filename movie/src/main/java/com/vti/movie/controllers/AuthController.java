@@ -1,17 +1,16 @@
 package com.vti.movie.controllers;
 
 import com.vti.movie.config.jwt.JWTTokenUtils;
-import com.vti.movie.dtos.LoginDTO;
-import com.vti.movie.dtos.SignUpDTO;
-import com.vti.movie.entity.User;
+import com.vti.movie.modal.dtos.LoginDTO;
+import com.vti.movie.modal.dtos.SignUpDTO;
+import com.vti.movie.modal.entity.User;
 import com.vti.movie.exception.AppException;
 import com.vti.movie.exception.ErrorResponseBase;
-import com.vti.movie.modal.LoginRequest;
+import com.vti.movie.modal.request.LoginRequest;
 import com.vti.movie.repository.IUserRepository;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -82,7 +81,7 @@ public class AuthController {
             String jwt = jwtTokenUtils.generateTokenLogin(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User currentUser = userRepository.findByUsername(user.getUsername()).get();
-            return ResponseEntity.ok(new SignUpDTO(currentUser.getId(), currentUser.getFirstname(), userDetails.getUsername() , currentUser.getLastname(), currentUser.getRole(),currentUser.getBank_car_number(), currentUser.getPhoneNumber()));
+            return ResponseEntity.ok(new SignUpDTO(currentUser.getId(), currentUser.getFirstName(), userDetails.getUsername() , currentUser.getLastName(), currentUser.getRole(),currentUser.getBankCardNumber(), currentUser.getPhoneNumber()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

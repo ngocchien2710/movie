@@ -1,6 +1,6 @@
 package com.vti.movie.service.schedule;
 
-import com.vti.movie.entity.Token;
+import com.vti.movie.modal.entity.Token;
 import com.vti.movie.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

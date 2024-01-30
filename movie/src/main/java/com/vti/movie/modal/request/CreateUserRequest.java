@@ -1,13 +1,18 @@
-package com.vti.movie.modal;
+package com.vti.movie.modal.request;
 
-import com.vti.movie.entity.ERole;
+import com.vti.movie.modal.entity.ERole;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateUserRequest {
     @NotBlank(message = "Tên không được để trống")
     private String username;
@@ -29,8 +34,17 @@ public class CreateUserRequest {
     @NotBlank(message = "Số điện thoại không được để trống")
     private String phoneNumber;
 
-    @NotBlank(message = "Email không được để trống")
-    private String email;
+    @NotBlank(message = "Địa chỉ không được để trống")
+    private String address;
+
+    @NotBlank(message = "Không được để trống")
+    private String cccd;
+
+    @NotBlank(message = "Không được để trống")
+    private String bankCardNumber;
+
+    @NotBlank(message = "Không được để trống")
+    private Date dateOfBirth;
 
 
 }

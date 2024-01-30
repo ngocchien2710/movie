@@ -1,6 +1,6 @@
-package com.vti.movie.dtos;
+package com.vti.movie.modal.dtos;
 
-import com.vti.movie.entity.ERole;
+import com.vti.movie.modal.entity.ERole;
 import lombok.*;
 
 @Getter

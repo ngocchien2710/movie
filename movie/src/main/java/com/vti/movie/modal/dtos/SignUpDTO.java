@@ -1,13 +1,11 @@
-package com.vti.movie.dtos;
+package com.vti.movie.modal.dtos;
 
-import com.vti.movie.entity.ERole;
-import com.vti.movie.entity.User;
+import com.vti.movie.modal.entity.ERole;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @Setter

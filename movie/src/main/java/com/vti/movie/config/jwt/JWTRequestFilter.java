@@ -1,6 +1,6 @@
 package com.vti.movie.config.jwt;
 
-import com.vti.movie.dtos.LoginDTO;
+import com.vti.movie.modal.dtos.LoginDTO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

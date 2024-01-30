@@ -1,17 +1,23 @@
 package com.vti.movie.service;
 
-import com.vti.movie.entity.User;
-import com.vti.movie.modal.CreateUserRequest;
-import com.vti.movie.modal.UpdateUserRequest;
+import com.vti.movie.modal.entity.User;
+import com.vti.movie.modal.request.CreateUserRequest;
+import com.vti.movie.modal.request.UpdateUserRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
 public interface IUserService {
-    List<User> findAll();
-    User findById(Integer id);
-    void deleteUser(Integer id);
+    List<User> getAll();
 
-    void createUser(CreateUserRequest request);
-    User updateUser(int id, UpdateUserRequest request);
+    User getById(int id);
 
+    void create(CreateUserRequest request);
+
+    User update(UpdateUserRequest request);
+
+    void delete(int id);
+
+    UserDetails loadUserByUserName(String username) throws UsernameNotFoundException;
 }
