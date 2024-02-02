@@ -1,6 +1,5 @@
 package com.vti.movie.modal.entity;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,30 +30,23 @@ public class User {
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
-    @Column(name = "cccd",length = 50, unique = true)
+    @Column(name = "cccd",length = 50)
     private String cccd;
 
     @Column(name = "address",length = 255)
     private String address;
 
-    @Column(name = "phone_number",length = 20, unique = true)
+    @Column(name = "phone_number",length = 20)
     private String phoneNumber;
 
-    @Column(name = "bank_card_number",length = 20, unique = true)
+    @Column(name = "bank_card_number",length = 20)
     private String bankCardNumber;
 
     @Column(name = "username",length = 50,unique = true)
     private String username;
 
-    @Column(name = "password",length = 50,unique = true)
+    @Column(name = "password")
     private String password;
 
-
-
 }
-
-
-//
-//    public User(String username, String password, List<GrantedAuthority> authorities) {
-//    }
 

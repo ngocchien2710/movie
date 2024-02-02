@@ -1,28 +1,24 @@
 package com.vti.movie.controllers;
 
 import com.vti.movie.config.jwt.JWTTokenUtils;
-import com.vti.movie.modal.dtos.LoginDTO;
-import com.vti.movie.modal.dtos.SignUpDTO;
-import com.vti.movie.modal.entity.User;
 import com.vti.movie.exception.AppException;
 import com.vti.movie.exception.ErrorResponseBase;
+import com.vti.movie.modal.dtos.LoginDTO;
+import com.vti.movie.modal.entity.User;
 import com.vti.movie.modal.request.LoginRequest;
 import com.vti.movie.repository.IUserRepository;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -38,7 +34,7 @@ public class AuthController {
     private JWTTokenUtils jwtTokenUtils;
 
     @Autowired
-    PasswordEncoder encoder;
+    public PasswordEncoder encoder;
 
     @Autowired
     HttpServletRequest httpServletRequest;
@@ -68,20 +64,23 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> Register(@RequestBody User user){
+    public ResponseEntity<?> Register(@RequestBody User user) {
         try {
-            if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-                throw new Exception("Đã tồn tại người dùng, vui lòng chọn tên người dùng khác");
-            }
             String password = user.getPassword();
-            userRepository.save(user);
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), password));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String username = user.getUsername();
+            if (StringUtils.isEmpty(password) || StringUtils.isEmpty(username))
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or Password khong duoc trong");
 
-            String jwt = jwtTokenUtils.generateTokenLogin(authentication);
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User currentUser = userRepository.findByUsername(user.getUsername()).get();
-            return ResponseEntity.ok(new SignUpDTO(currentUser.getId(), currentUser.getFirstName(), userDetails.getUsername() , currentUser.getLastName(), currentUser.getRole(),currentUser.getBankCardNumber(), currentUser.getPhoneNumber()));
+            User user1 = userRepository.findByUsername(username).orElse(null);
+
+            if (Objects.nonNull(user1))
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username da ton tai");
+
+            password = encoder.encode(password);
+            user.setPassword(password);
+            userRepository.save(user);
+            String jwt = jwtTokenUtils.generateTokenLogin(username);
+            return ResponseEntity.status(HttpStatus.OK).body(jwt);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

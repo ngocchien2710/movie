@@ -63,8 +63,6 @@ public class JWTTokenUtils {
         return token;
     }
 
-
-
     // Hàm này dùng để giải mã hóa token
     public LoginDTO parseAccessToken(String token) {
         LoginDTO loginDto = new LoginDTO();
@@ -136,11 +134,11 @@ public class JWTTokenUtils {
     }
 
 
-    public String generateTokenLogin(Authentication authentication) {
-       SignUpDTO signUpDTO = (SignUpDTO) authentication.getPrincipal();
+    public String generateTokenLogin(String username) {
+//       SignUpDTO signUpDTO = (SignUpDTO) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject((signUpDTO.getUsername()))
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + EXPIRATION_TIME * 1000))
                 .signWith(SignatureAlgorithm.HS512, SECRET)

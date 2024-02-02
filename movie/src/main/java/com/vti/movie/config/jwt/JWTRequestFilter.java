@@ -35,7 +35,7 @@ public  class JWTRequestFilter extends OncePerRequestFilter {
         String token = httpServletRequest.getHeader(AUTHORIZATION);
         String request = httpServletRequest.getRequestURI();
 
-        if (StringUtils.containsAnyIgnoreCase(request, "/api/v1/auth/login")
+        if (StringUtils.containsAnyIgnoreCase(request, "/api/v1/auth/login", "api/v1/auth/register")
                 || StringUtils.containsAnyIgnoreCase(request, "/swagger-ui")
                 || StringUtils.containsAnyIgnoreCase(request, "/swagger-resources")
                 || StringUtils.containsAnyIgnoreCase(request, "/v3/api-docs")) {

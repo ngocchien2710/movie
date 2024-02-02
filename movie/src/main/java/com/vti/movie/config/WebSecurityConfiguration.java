@@ -15,8 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-
-
 @Configuration // Kết hợp với @Bean để tạo thành 1 bean trong spring IOC
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)  // Để có thể phân quyền tại controller
@@ -32,17 +30,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers( "/api/v1/auth/login-v2", "api/v1/auth//register").permitAll() // Config API không cần xác thực
-//                .antMatchers(HttpMethod.GET,"api/v1/create").hasAnyAuthority("ADMIN")
-//                .antMatchers(HttpMethod.GET,).hasAnyAuthority("USER")
+                .antMatchers("/api/v1/auth/login-v2", "/api/v1/auth/register").permitAll() // Config API không cần xác thực
                 .anyRequest().authenticated() // Những đường dẫn còn lại cần dược xác thực
                 .and().httpBasic() // Kích hoạt cấu hình http basic trong Spring Security
                 .and().cors().and().csrf().disable(); // Tắt tính năng Cross-site Request Forgery (CSRF) trong spring Security
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(jwtRequestFilter,  UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
